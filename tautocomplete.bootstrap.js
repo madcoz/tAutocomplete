@@ -43,6 +43,7 @@ Email: kitsingchan@gmail.com
             columns: [],
             hide: [false],
             onchange: null,
+            onfocusout: null,
             norecord: "No Records Found",
             regex: ".",
             data: null,
@@ -120,9 +121,16 @@ Email: kitsingchan@gmail.com
             off: function() {
             	el.ddTextbox.data('autocomplete', 'off');
             },
+            hidedropdown: function() {
+            	hideDropDown();
+            },
+            showdropdown: function() {
+            	showDropDown();
+            },
             destroy: function() {
                 //Unbind all related events
                 el.ddTextbox.off('.tautocomplete');
+                $(window).off('.tautocomplete');
                 //Remove autocomplete, text, id
             	el.ddTextbox.data('autocomplete', null);
             	el.ddTextbox.data('timer', null);
@@ -342,12 +350,18 @@ Email: kitsingchan@gmail.com
         });
 
         // textbox blur event
-        el.ddTextbox.focusout(function () {
-            hideDropDown();
+        el.ddTextbox.on('focusout.tautocomplete', function () {
+            // onfocusout callback function
+            if ($.isFunction(settings.onfocusout)) {
+                settings.onfocusout.call(this);
+            }
+            else {
+            	hideDropDown();
+            }
         });
         
         //Responsive to the browser window resize
-        $(window).resize(function() {
+        $(window).on('resize.tautocomplete', function() {
             if(el.ddDiv.hasClass("tautocomplete-highlight")) {
                 hideDropDown();
                 showDropDown();
@@ -464,7 +478,11 @@ Email: kitsingchan@gmail.com
                 }
 
                 el.ddTable.find("tbody").find("tr:first").addClass('active');
-                showDropDown();
+                hideDropDown();
+                
+                if(el.ddTextbox.is(':focus')) {
+                	showDropDown();
+                }
             }
             catch (e)
             {
