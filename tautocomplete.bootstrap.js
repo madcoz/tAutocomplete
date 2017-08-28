@@ -408,13 +408,16 @@ Email: kitsingchan@gmail.com
 
             var cssTop = (el.ddTextbox.outerHeight()) + "px 0px 0px 0px";
 
+            //The table must be shown first, if not in IE11, the position of the textbox wrap would be incorrect
+            el.ddTable.show();
+            
             // reset div top, left and margin
             el.ddDiv.css("top", el.ddTextboxWrap.position().top);
             el.ddDiv.css("left", el.ddTextboxWrap.position().left);
             el.ddTable.css("margin", cssTop);
 
             el.ddDiv.addClass("tautocomplete-highlight");
-            el.ddTable.show();
+            //el.ddTable.show();
 
         }
         function jsonParser(jsonData) {
