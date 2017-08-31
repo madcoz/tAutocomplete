@@ -23,4 +23,5 @@ SOFTWARE.
 *//*!
 Modified work by: alister chan
 Email: kitsingchan@gmail.com
+Version: 2.0.1
 */.abootstrap3{position:absolute}.abootstrap3 table{background-color:#fff;display:none}.abootstrap3 div{position:absolute}.abootstrap3 table caption{background-color:#fff;border:1px solid #ddd;caption-side:bottom;text-align:center;display:none}.abootstrap3 table thead{background-color:#f2f2f2}.acontainer .has-feedback .form-control-feedback{right:0}.acontainer .form-group{margin:0}.tautocomplete-highlight{z-index:999}.tautocomplete-glyphicon-spin{-webkit-animation:tautocomplete-spin 1000ms infinite linear;animation:tautocomplete-spin 1000ms infinite linear}@-webkit-keyframes tautocomplete-spin{0{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}@keyframes tautocomplete-spin{0{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
