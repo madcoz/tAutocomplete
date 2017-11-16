@@ -436,6 +436,7 @@ Version: 2.0.2
                 }
 
                 var i = 0, j = 0;
+                var noRecords = false;
                 var row = null, cell = null;
                 if (jsonData != null) {
                     for (i = 0; i < jsonData.length; i++) {
@@ -468,10 +469,11 @@ Version: 2.0.2
                         el.ddTable.append("<tr>" + row + "</tr>");
                     }
                 }
-                // show no records exists
-                if (i == 0)
-                    el.ddTableCaption.show();
 
+                if(i == 0) {
+                	noRecords = true;
+                }
+                
                 // hide columns
                 for(var i=0; (i< settings.hide.length) && (i< cols) ; i++)
                 {
@@ -486,6 +488,9 @@ Version: 2.0.2
                 
                 if(el.ddTextbox.is(':focus')) {
                 	showDropDown();
+                	// show no records exists
+                    if (noRecords)
+                        el.ddTableCaption.show();
                 }
             }
             catch (e)
