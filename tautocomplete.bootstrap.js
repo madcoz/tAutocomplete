@@ -76,7 +76,7 @@ Version: 2.0.1
             ddTextbox: $(this),
             ddTextboxWrap: $(theme.textboxWrap),
             ddTextboxFeedback: $(theme.textboxFeedback),
-            ddTextboxFeedbackIcon: $(theme.textboxFeedbackIcon, { "class": theme.endLoading})
+            ddTextboxFeedbackIcon: $(theme.textboxFeedbackIcon).addClass(theme.endLoading)
         };
 
         var keys = {
