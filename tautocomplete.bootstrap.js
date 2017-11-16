@@ -24,7 +24,7 @@ SOFTWARE.
 /*!
 Modified work by: alister chan
 Email: kitsingchan@gmail.com
-Version: 2.0.1
+Version: 2.0.2
 */
 
 (function ($) {
