@@ -134,6 +134,7 @@ Version: 2.0.2
                 $(window).off('.tautocomplete');
                 //Remove autocomplete, text, id
             	el.ddTextbox.data('autocomplete', null);
+                clearTimeout(el.ddTextbox.data('timer'));
             	el.ddTextbox.data('timer', null);
             	el.ddTextbox.data('text', null);
             	el.ddTextbox.data('id', null);
