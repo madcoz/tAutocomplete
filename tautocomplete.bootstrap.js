@@ -24,7 +24,7 @@ SOFTWARE.
 /*!
 Modified work by: alister chan
 Email: kitsingchan@gmail.com
-Version: 2.0.2
+Version: 2.0.3
 */
 
 (function ($) {
@@ -121,6 +121,8 @@ Version: 2.0.2
             },
             off: function() {
             	el.ddTextbox.data('autocomplete', 'off');
+            	clearTimeout(el.ddTextbox.data('timer'));
+            	hideDropDown();
             },
             hidedropdown: function() {
             	hideDropDown();
@@ -129,23 +131,25 @@ Version: 2.0.2
             	showDropDown();
             },
             destroy: function() {
-                //Unbind all related events
-                el.ddTextbox.off('.tautocomplete');
-                $(window).off('.tautocomplete');
-                //Remove autocomplete, text, id
-            	el.ddTextbox.data('autocomplete', null);
-                clearTimeout(el.ddTextbox.data('timer'));
-            	el.ddTextbox.data('timer', null);
-            	el.ddTextbox.data('text', null);
-            	el.ddTextbox.data('id', null);
-            	//Remove the feedback icon
-            	el.ddTextboxFeedbackIcon.remove();
-            	el.ddTextboxFeedback.remove();
-            	//Unwrap ddTextboxWrap, .acontainer
-            	el.ddTextbox.unwrap().unwrap();
-            	//Remove the div dropdown
-            	el.ddDiv.remove();
-            	$(this).data('plugin_tautocomplete', null);
+            	if($(el.ddTextbox).data('plugin_tautocomplete')) {
+            		//Unbind all related events
+            		el.ddTextbox.off('.tautocomplete');
+                    $(window).off('.tautocomplete');
+                    //Remove autocomplete, text, id
+                	el.ddTextbox.data('autocomplete', null);
+                	clearTimeout(el.ddTextbox.data('timer'));
+                	el.ddTextbox.data('timer', null);
+                	el.ddTextbox.data('text', null);
+                	el.ddTextbox.data('id', null);
+                	//Remove the feedback icon
+                	el.ddTextboxFeedbackIcon.remove();
+                	el.ddTextboxFeedback.remove();
+                	//Unwrap ddTextboxWrap, .acontainer
+                	el.ddTextbox.unwrap().unwrap();
+                	//Remove the div dropdown
+                	el.ddDiv.remove();
+                	$(el.ddTextbox).data('plugin_tautocomplete', null);
+            	}
             }
         };
         
@@ -221,13 +225,14 @@ Version: 2.0.2
         // autocomplete key press
         el.ddTextbox.on('keyup.tautocomplete', function (e) {
             var timer = 0;
+            var $target = $(e['target']);
             
-            if(el.ddTextbox.data("autocomplete") == "off") {
+            if($target.data("autocomplete") !== "on") {
                 return;
             }
             
             //Clear timer first
-            clearTimeout(el.ddTextbox.data("timer"));
+            clearTimeout($target.data("timer"));
             
             //return if up/down/return key
             if ((e.keyCode < 46 || (e.keyCode > 111 && e.keyCode < 186)) && (e.keyCode != keys.BACKSPACE) && (e.keyCode != keys.SHIFT)) {
@@ -237,17 +242,21 @@ Version: 2.0.2
             
             //delay for 1 second: wait for user to finish typing
             timer = delay(function () {
-                processInput();
+                processInput.call($target);
             }, settings.delay);
-            el.ddTextbox.data("timer", timer);
+            $target.data("timer", timer);
         });
 
         // process input
         function processInput()
         {
-            if (el.ddTextbox.val() == "") {
+            if ($(this).val() == "") {
                     hideDropDown();
                     return;
+            }
+            
+            if($(this).data("autocomplete") !== "on") {
+                return;
             }
 
             // hide no record found message
