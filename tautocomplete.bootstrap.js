@@ -24,7 +24,7 @@ SOFTWARE.
 /*!
 Modified work by: alister chan
 Email: kitsingchan@gmail.com
-Version: 2.0.3
+Version: 2.0.4
 */
 
 (function ($) {
@@ -284,7 +284,11 @@ Version: 2.0.3
                     success: ajaxData,
                     error: function (xhr, ajaxOptions, thrownError) {
                         el.ddTextboxFeedbackIcon.removeClass(theme.startLoading).addClass(theme.endLoading);
-                        alert('Error: ' + xhr.status || ' - ' || thrownError);
+                        if(settings.ajax.error == null || settings.ajax.error == "" || (typeof settings.ajax.error === "undefined")) {
+                        	alert('Error: ' + xhr.status || ' - ' || thrownError);
+                        } else if($.isFunction(settings.ajax.error)) {
+                        	settings.ajax.error.call(this, xhr, ajaxOptions, thrownError);
+                        }
                     }
                 });
             }
