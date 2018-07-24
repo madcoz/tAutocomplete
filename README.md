@@ -14,7 +14,8 @@ Enhancements<br/>
 5. Add api 'showdropdown' for manual show drop down<br/>
 6. Add custom event handler 'onfocusout'<br/>
 7. Add api 'destroy' for remove of the autocomplete<br/>
-8. Support symbols text search
+8. Support symbols text search<br/>
+9. Allow execute ajax custom error function
 
 Breakable changes:
 1. Change option 'width' to 'maxwidth' for responsive support
