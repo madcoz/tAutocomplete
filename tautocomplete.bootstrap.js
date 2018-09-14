@@ -24,7 +24,7 @@ SOFTWARE.
 /*!
 Modified work by: alister chan
 Email: kitsingchan@gmail.com
-Version: 2.0.4
+Version: 2.1.0
 */
 
 (function ($) {
@@ -284,11 +284,7 @@ Version: 2.0.4
                     success: ajaxData,
                     error: function (xhr, ajaxOptions, thrownError) {
                         el.ddTextboxFeedbackIcon.removeClass(theme.startLoading).addClass(theme.endLoading);
-                        if(settings.ajax.error == null || settings.ajax.error == "" || (typeof settings.ajax.error === "undefined")) {
-                        	alert('Error: ' + xhr.status || ' - ' || thrownError);
-                        } else if($.isFunction(settings.ajax.error)) {
-                        	settings.ajax.error.call(this, xhr, ajaxOptions, thrownError);
-                        }
+                        alert('Error: ' + xhr.status || ' - ' || thrownError);
                     }
                 });
             }
@@ -439,8 +435,8 @@ Version: 2.0.4
             try{
                 el.ddTextboxFeedbackIcon.removeClass(theme.startLoading).addClass(theme.endLoading);
 
-                // remove all rows from the table
-                el.ddTable.find("tbody").find("tr").remove();
+                // clear tbody from the table
+                el.ddTable.find("tbody").remove().end().append('<tbody />');
 
                 // regular expression for word highlight
                 var re = null;
@@ -480,7 +476,7 @@ Version: 2.0.4
                             j++;
                         }
                         // append row to the table
-                        el.ddTable.append("<tr>" + row + "</tr>");
+                        el.ddTable.find('tbody').append("<tr>" + row + "</tr>");
                     }
                 }
 
